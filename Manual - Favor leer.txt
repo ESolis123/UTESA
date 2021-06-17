@@ -1,0 +1,8 @@
+El ejecutable está en Analizador/dist
+
+Ahora mismo sólo está funcionando cuando se declara la funcion main, y adentro se declaran las
+variables y se inicializan, como se ve en la imagen Bien. Caso contrario, da error, como se ve en la imagen
+de error.
+
+Se puede probar con el archivo Prueba.txt de esta misma carpeta, que contiene un ejemplo con la
+función main.
