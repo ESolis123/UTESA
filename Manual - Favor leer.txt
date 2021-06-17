@@ -6,3 +6,5 @@ de 'Error'.
 
 Se puede probar con el archivo Prueba.txt en la carpeta 'Archivos de ayuda', que contiene un ejemplo con la
 función main.
+
+Warning: Favor probar el ejecutable dentro de la carpeta dist, por alguna razón no funciona fuera. Estoy revisando
