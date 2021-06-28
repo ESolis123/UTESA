@@ -1,2 +1,7 @@
 
 /Analizador/nbproject/private/
+/Compilador/Compilador/build/
+/Compilador/Compilador/nbproject/private/
+/Compilador/AnalizadorSemantico/nbproject/private/
+/Compilador/AnalizadorSemantico/build/
+/Compilador/AnalizadorSemantico/dist/
