@@ -85,7 +85,7 @@ public class Ventana extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panel1.setBackground(new java.awt.Color(204, 204, 204));
+        panel1.setBackground(new java.awt.Color(0, 102, 255));
 
         tabla.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -1271,9 +1271,7 @@ public class Ventana extends javax.swing.JFrame {
                                 txtATraducido.setText(testo+"REM ");
 
                             }
-                            if  (tokinn.matches(id) && tokinn.contains("BEGIN")==false  && tokinn.contains("{")==false){
-                                txtATraducido.setText("REM Ing. Javier Mendoza Loor;\nREM "+testo+tokinn+"");
-                            }
+                            
                             if(tokinn.contains("{")){
                                 txtATraducido.setText(testo+" ;\n");
                             }
