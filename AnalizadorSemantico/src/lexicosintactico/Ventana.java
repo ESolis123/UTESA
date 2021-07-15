@@ -11,10 +11,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StreamTokenizer;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -59,7 +62,7 @@ public class Ventana extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        GenerarAnalisisLexicoBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -71,10 +74,14 @@ public class Ventana extends javax.swing.JFrame {
         Lineas = new javax.swing.JEditorPane();
         LineaError = new javax.swing.JEditorPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtATraducido = new javax.swing.JTextArea();
+        txtCodigoConvertido = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         btnTraducir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAnalisisLexico = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -199,13 +206,13 @@ public class Ventana extends javax.swing.JFrame {
         jLabel2.setText("Texto del Archivo");
         jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Table.png"))); // NOI18N
-        jButton1.setText("Generar Tabla Análisis Léxico");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        GenerarAnalisisLexicoBtn.setBackground(new java.awt.Color(204, 204, 204));
+        GenerarAnalisisLexicoBtn.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        GenerarAnalisisLexicoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Table.png"))); // NOI18N
+        GenerarAnalisisLexicoBtn.setText("Generar analisis Lexico");
+        GenerarAnalisisLexicoBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GenerarAnalisisLexicoBtnActionPerformed(evt);
             }
         });
 
@@ -266,9 +273,9 @@ public class Ventana extends javax.swing.JFrame {
                 .addComponent(LineaError, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(Lineas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
                 .addComponent(txtATexto1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,13 +289,13 @@ public class Ventana extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jPanel1);
 
-        txtATraducido.setColumns(20);
-        txtATraducido.setRows(5);
-        jScrollPane1.setViewportView(txtATraducido);
+        txtCodigoConvertido.setColumns(20);
+        txtCodigoConvertido.setRows(5);
+        jScrollPane1.setViewportView(txtCodigoConvertido);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Código Convertido");
+        jLabel4.setText("Analisis Lexico");
         jLabel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btnTraducir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -305,6 +312,25 @@ public class Ventana extends javax.swing.JFrame {
         jLabel5.setText("Lista de Errores Sintácticos y Semánticos");
         jLabel5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        txtAnalisisLexico.setColumns(20);
+        txtAnalisisLexico.setRows(5);
+        jScrollPane4.setViewportView(txtAnalisisLexico);
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Codigo Convertido");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jButton4.setBackground(new java.awt.Color(204, 204, 204));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Table.png"))); // NOI18N
+        jButton4.setText("Generar tabla de simbolos");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
         panel1Layout.setHorizontalGroup(
@@ -313,70 +339,75 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                     .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
                                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 33, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2))
-                                .addGap(87, 87, 87))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(85, 85, 85)))
+                                    .addComponent(btnTraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(GenerarAnalisisLexicoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(69, 69, 69)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(374, 374, 374)
+                        .addComponent(jLabel4)))
+                .addGap(53, 53, 53)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panel1Layout.createSequentialGroup()
                     .addGap(55, 55, 55)
                     .addComponent(jLabel2)
-                    .addGap(597, 1216, Short.MAX_VALUE)))
+                    .addGap(597, 1418, Short.MAX_VALUE)))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(7, 7, 7)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnTraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(GenerarAnalisisLexicoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(btnTraducir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
             .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panel1Layout.createSequentialGroup()
@@ -443,15 +474,13 @@ public class Ventana extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 42, Short.MAX_VALUE))
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 37, Short.MAX_VALUE))
+                .addGap(0, 26, Short.MAX_VALUE))
         );
 
         pack();
@@ -526,134 +555,124 @@ public class Ventana extends javax.swing.JFrame {
 }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        HashMap <String,Integer> r = new HashMap<>();
-        HashMap <String,Integer> op = new HashMap<>();
-        HashMap <String,Integer> id = new HashMap<>();
-        HashMap <String,Integer> deli = new HashMap<>();
-        HashMap <String,Integer> num = new HashMap<>();
-        LinkedList <String> texto = new LinkedList<>();
+    private void analizarLexico() throws IOException{
+        int cont = 1;
+        
+        String expr = (String) txtATexto1.getText();
+        Lexer lexer = new Lexer(new StringReader(expr));
+        String resultado = "LINEA " + cont + "\t\tSIMBOLO\n";
+        while (true) {
+            Tokens token = lexer.yylex();
+            if (token == null) {
+                txtAnalisisLexico.setText(resultado);
+                return;
+            }
+            switch (token) {
+                case Linea:
+                    cont++;
+                    resultado += "LINEA " + cont + "\n";
+                    break;
+                case Comillas:
+                    resultado += "  <Comillas>\t\t" + lexer.lexeme + "\n";
+                    break;
+                case Cadena:
+                    resultado += "  <Tipo de dato>\t" + lexer.lexeme + "\n";
+                    break;
+                case T_dato:
+                    resultado += "  <Tipo de dato>\t" + lexer.lexeme + "\n";
+                    break;
+                case If:
+                    resultado += "  <Reservada if>\t" + lexer.lexeme + "\n";
+                    break;
+                case Else:
+                    resultado += "  <Reservada else>\t" + lexer.lexeme + "\n";
+                    break;
+                case Do:
+                    resultado += "  <Reservada do>\t" + lexer.lexeme + "\n";
+                    break;
+                case While:
+                    resultado += "  <Reservada while>\t" + lexer.lexeme + "\n";
+                    break;
+                case For:
+                    resultado += "  <Reservada while>\t" + lexer.lexeme + "\n";
+                    break;
+                case Igual:
+                    resultado += "  <Operador igual>\t" + lexer.lexeme + "\n";
+                    break;
+                case Suma:
+                    resultado += "  <Operador suma>\t" + lexer.lexeme + "\n";
+                    break;
+                case Resta:
+                    resultado += "  <Operador resta>\t" + lexer.lexeme + "\n";
+                    break;
+                case Multiplicacion:
+                    resultado += "  <Operador multiplicacion>\t" + lexer.lexeme + "\n";
+                    break;
+                case Division:
+                    resultado += "  <Operador division>\t" + lexer.lexeme + "\n";
+                    break;
+                case Op_logico:
+                    resultado += "  <Operador logico>\t" + lexer.lexeme + "\n";
+                    break;
+                case Op_incremento:
+                    resultado += "  <Operador incremento>\t" + lexer.lexeme + "\n";
+                    break;
+                case Op_relacional:
+                    resultado += "  <Operador relacional>\t" + lexer.lexeme + "\n";
+                    break;
+                case Op_atribucion:
+                    resultado += "  <Operador atribucion>\t" + lexer.lexeme + "\n";
+                    break;
+                case Op_booleano:
+                    resultado += "  <Operador booleano>\t" + lexer.lexeme + "\n";
+                    break;
+                case Parentesis_a:
+                    resultado += "  <Parentesis de apertura>\t" + lexer.lexeme + "\n";
+                    break;
+                case Parentesis_c:
+                    resultado += "  <Parentesis de cierre>\t" + lexer.lexeme + "\n";
+                    break;
+                case Llave_a:
+                    resultado += "  <Llave de apertura>\t" + lexer.lexeme + "\n";
+                    break;
+                case Llave_c:
+                    resultado += "  <Llave de cierre>\t" + lexer.lexeme + "\n";
+                    break;
+                case Corchete_a:
+                    resultado += "  <Corchete de apertura>\t" + lexer.lexeme + "\n";
+                    break;
+                case Corchete_c:
+                    resultado += "  <Corchete de cierre>\t" + lexer.lexeme + "\n";
+                    break;
+                case Main:
+                    resultado += "  <Reservada main>\t" + lexer.lexeme + "\n";
+                    break;
+                case P_coma:
+                    resultado += "  <Punto y coma>\t" + lexer.lexeme + "\n";
+                    break;
+                case Identificador:
+                    resultado += "  <Identificador>\t\t" + lexer.lexeme + "\n";
+                    break;
+                case Numero:
+                    resultado += "  <Numero>\t\t" + lexer.lexeme + "\n";
+                    break;
+                case ERROR:
+                    resultado += "  <Simbolo no definido>\n";
+                    break;
+                default:
+                    resultado += "  < " + lexer.lexeme + " >\n";
+                    break;
+            }
+        }
+    }
     
-        r.put("BEGIN", 0);
-        r.put("END", 0);
-        r.put("WORD", 0);
-        r.put("ALFA", 0);
-        r.put("NUM", 0);
-        r.put("DNUM", 0);
-        r.put("BOOL", 0);
-        r.put("LNUM", 0);
-        r.put("TAKE", 0);
-        r.put("SEND", 0);
-        r.put("WHEN", 0);
-        r.put("IT", 0);
-        r.put("IS", 0);
-        r.put("START", 0);
-        r.put("STEP", 0);
-        r.put("TO", 0);
-        r.put("STOP", 0);
-        r.put("SWHEN", 0);
-        r.put("COMPLETE", 0);
-        
-        op.put("/", 0);
-        op.put("*", 0);
-        op.put("+", 0);
-        op.put("-", 0);
-        op.put("=", 0);
-        op.put("^", 0);
-        op.put("<", 0);
-        op.put(">", 0);
-        op.put("||", 0);
-        op.put("&&", 0);
-        
-        deli.put("#", 0);
-        deli.put(";", 0);
-        deli.put("{", 0);
-        deli.put("}", 0);
-        deli.put(")", 0);
-        deli.put(",", 0);
-        deli.put("(",0);
-        
-        
-         
-        
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"Token","Cantidad","Tipo"});
-        
-        StringTokenizer st = new StringTokenizer(txtATexto1.getText(),"{}();,\"=+-*/><||&&# \n\t",true);
-        String token, text = "";
-        while (st.hasMoreTokens()){
-            token = st.nextToken();
-            if(!" ".equals(token) && !"\n".equals(token) && !"\t".equals(token)){
-                if (r.containsKey(token)) {
-                    r.put(token, r.get(token)+1);            
-                }else {
-                    if (op.containsKey(token)) {
-                        op.put(token, op.get(token)+1);            
-                    }else {
-                        if (deli.containsKey(token)){
-                            deli.put(token, deli.get(token)+1);
-                            if("#".equals(token)){
-                                token = st.nextToken();
-                                while (st.hasMoreTokens() && !"#".equals(token)){
-                                    text += token;
-                                    token = st.nextToken();
-                                }
-                                texto.add(text);
-                                deli.put(token, deli.get(token)+1);
-                                text = "";
-                            }
-                        }else {
-                            if (id.containsKey(token)) {
-                                id.put(token, id.get(token)+1); 
-                            }else {
-                                if(token.matches("([0-9]*)|([0-9]*.[0-9]+)")) {
-                                    if (num.containsKey(token)) {
-                                        num.put(token, num.get(token)+1);
-                                    }else num.put(token, 1); 
-                                }
-                                else id.put(token, 1); 
-                            }
-                        }
-                    }
-                }
-            }
+    private void GenerarAnalisisLexicoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarAnalisisLexicoBtnActionPerformed
+         try {
+            analizarLexico();
+        } catch (IOException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        Iterator<String> itr = r.keySet().iterator();
-        while(itr.hasNext()){
-            token = itr.next();
-            if(r.get(token) > 0)model.addRow(new Object[]{token, r.get(token),"Palabra Reservada"});
-        } 
-        itr = op.keySet().iterator();
-        while(itr.hasNext()){
-            token = itr.next();
-            if(op.get(token) > 0) model.addRow(new Object[]{token, op.get(token),"Operador"});
-        } 
-        itr = deli.keySet().iterator();
-        while(itr.hasNext()){
-            token = itr.next();
-            if(deli.get(token) > 0) model.addRow(new Object[]{token, deli.get(token),"Delimitador"});
-        } 
-        itr = id.keySet().iterator();
-        while(itr.hasNext()){
-            token = itr.next();
-            if(id.get(token) > 0) model.addRow(new Object[]{token, id.get(token),"Identificador"});
-        } 
-        itr = num.keySet().iterator();
-        while(itr.hasNext()){
-            token = itr.next();
-            if(num.get(token) > 0) {
-                if(token.matches("[0-9]+"))model.addRow(new Object[]{token, num.get(token),"Número"});
-                if(token.matches("[0-9]+.[0-9]+"))model.addRow(new Object[]{token, num.get(token),"Número Decimal"});
-            }
-        }
-        itr = texto.iterator();
-        while(itr.hasNext()){
-            model.addRow(new Object[]{itr.next(), "1","Texto"});
-            
-        }
-        tabla.setModel(model);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_GenerarAnalisisLexicoBtnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         errores=0;
@@ -912,7 +931,7 @@ public class Ventana extends javax.swing.JFrame {
                             
                             else {
                                 if(token.contains("SEND")){
-                                    txtATraducido.setText("PRINT");
+                                    txtCodigoConvertido.setText("PRINT");
                                     Error.setText("Error al declarar sentencia SEND; en la linea "+i+": \n"
                                                    + "\n"+token);
                                      errores=1;
@@ -1177,7 +1196,8 @@ public class Ventana extends javax.swing.JFrame {
         txtATexto1.setText("");
         LineaError.setText("");
         Error.setText("");
-        txtATraducido.setText("");
+        txtCodigoConvertido.setText("");
+        txtAnalisisLexico.setText("");
         btnTraducir.setEnabled(false);
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -1221,7 +1241,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void btnTraducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraducirActionPerformed
-      txtATraducido.setText("");
+      txtCodigoConvertido.setText("");
         String
                simbolo = "([=<>])",
                 id = "([(a-z)(A-Z)](\\w)*)",
@@ -1265,15 +1285,15 @@ public class Ventana extends javax.swing.JFrame {
                         StringTokenizer tokin = new StringTokenizer(token," \n");
                         while(tokin.hasMoreTokens()){
                             String testo="";
-                            testo=testo+txtATraducido.getText();
+                            testo=testo+txtCodigoConvertido.getText();
                             tokinn=tokin.nextToken();
                             if(tokinn.contains("BEGIN")){
-                                txtATraducido.setText(testo+"REM ");
+                                txtCodigoConvertido.setText(testo+"REM ");
 
                             }
                             
                             if(tokinn.contains("{")){
-                                txtATraducido.setText(testo+" ;\n");
+                                txtCodigoConvertido.setText(testo+" ;\n");
                             }
                         }
 
@@ -1281,14 +1301,14 @@ public class Ventana extends javax.swing.JFrame {
 
                     if(token.matches(var)){
                         String a ="";
-                        a=txtATraducido.getText();
+                        a=txtCodigoConvertido.getText();
                         a=a+"DIM  ";
-                        txtATraducido.setText(a);
+                        txtCodigoConvertido.setText(a);
                         String tokinn="";
                         StringTokenizer tokin = new StringTokenizer(token," \n,;");
                         while(tokin.hasMoreTokens()){
                                 String testo="";
-                                testo=testo+txtATraducido.getText();
+                                testo=testo+txtCodigoConvertido.getText();
                                 tokinn=tokin.nextToken();
                                 
                                 if(tokinn.contains("NUM") || tokinn.contains("DNUM") || tokinn.contains("WORD")){
@@ -1317,16 +1337,16 @@ public class Ventana extends javax.swing.JFrame {
                                         }
                                         contador+=1;
                                     }
-                                    txtATraducido.setText(testo+enteros+"\n");
+                                    txtCodigoConvertido.setText(testo+enteros+"\n");
                                 }
 
                         }
                     }
 
                 }
-                String b=txtATraducido.getText();
+                String b=txtCodigoConvertido.getText();
                 b=b+"  \n";
-                txtATraducido.setText(b);
+                txtCodigoConvertido.setText(b);
                 
                 
                 StringTokenizer st1 = new StringTokenizer(txtATexto1.getText(),"\n");
@@ -1344,8 +1364,8 @@ public class Ventana extends javax.swing.JFrame {
                     }*/
                     if(token1.matches(start3)){
                         //JOptionPane.showMessageDialog(this,"Termina FOR");
-                        String a=txtATraducido.getText()+"\nNEXT\n";
-                        txtATraducido.setText(a);
+                        String a=txtCodigoConvertido.getText()+"\nNEXT\n";
+                        txtCodigoConvertido.setText(a);
                     }
                    if(token1.matches(when2)){
                         StringTokenizer st2= new StringTokenizer (token1,"()");
@@ -1358,35 +1378,35 @@ public class Ventana extends javax.swing.JFrame {
                                             String tuken2=st3.nextToken();
                                             
                                             if(st3.hasMoreTokens()==true){
-                                                String a=txtATraducido.getText()+tuken2+"=";
-                                                txtATraducido.setText(a);
+                                                String a=txtCodigoConvertido.getText()+tuken2+"=";
+                                                txtCodigoConvertido.setText(a);
                                             }else{
-                                                String a=txtATraducido.getText()+tuken2;
-                                                txtATraducido.setText(a);
+                                                String a=txtCodigoConvertido.getText()+tuken2;
+                                                txtCodigoConvertido.setText(a);
                                             }
                                             
                                         }
                                     }else{
-                                       String a= txtATraducido.getText()+ tuken;
-                                       txtATraducido.setText(a);
+                                       String a= txtCodigoConvertido.getText()+ tuken;
+                                       txtCodigoConvertido.setText(a);
                                     }
                             }
                             
                             if(tuken.contains("WHEN")){
-                                String a=txtATraducido.getText()+"\nWHILE ";
-                                txtATraducido.setText(a);
+                                String a=txtCodigoConvertido.getText()+"\nWHILE ";
+                                txtCodigoConvertido.setText(a);
                                 /*String loqueva=a+txtATraducido.getText()+" THEN";
                                 txtATraducido.setText(loqueva);*/
                             }
                             if(tuken.contains("{")){
-                                String a=txtATraducido.getText()+"\n";
-                                txtATraducido.setText(a);
+                                String a=txtCodigoConvertido.getText()+"\n";
+                                txtCodigoConvertido.setText(a);
                             }
                         }
                     }
                     if(token1.matches(when3)){
-                        String a=txtATraducido.getText()+"\nWEND \n";
-                        txtATraducido.setText(a);
+                        String a=txtCodigoConvertido.getText()+"\nWEND \n";
+                        txtCodigoConvertido.setText(a);
                     }
                     if(token1.matches(it2)){
                         StringTokenizer st2= new StringTokenizer (token1,"()");
@@ -1399,40 +1419,40 @@ public class Ventana extends javax.swing.JFrame {
                                             String tuken2=st3.nextToken();
                                             
                                             if(st3.hasMoreTokens()==true){
-                                                String a=txtATraducido.getText()+tuken2+"=";
-                                                txtATraducido.setText(a);
+                                                String a=txtCodigoConvertido.getText()+tuken2+"=";
+                                                txtCodigoConvertido.setText(a);
                                             }else{
-                                                String a=txtATraducido.getText()+tuken2;
-                                                txtATraducido.setText(a);
+                                                String a=txtCodigoConvertido.getText()+tuken2;
+                                                txtCodigoConvertido.setText(a);
                                             }
                                             
                                         }
                                     }else{
-                                       String a= txtATraducido.getText()+ tuken;
-                                       txtATraducido.setText(a);
+                                       String a= txtCodigoConvertido.getText()+ tuken;
+                                       txtCodigoConvertido.setText(a);
                                     }
                             }
                             
                             if(tuken.contains("IT")){
-                                String a=txtATraducido.getText()+"\nIF ";
-                                txtATraducido.setText(a);
+                                String a=txtCodigoConvertido.getText()+"\nIF ";
+                                txtCodigoConvertido.setText(a);
                                 /*String loqueva=a+txtATraducido.getText()+" THEN";
                                 txtATraducido.setText(loqueva);*/
                             }
                             if(tuken.contains("{")){
-                                String a=txtATraducido.getText()+" THEN\n";
-                                txtATraducido.setText(a);
+                                String a=txtCodigoConvertido.getText()+" THEN\n";
+                                txtCodigoConvertido.setText(a);
                             }
                         }
                     }
                     if(token1.matches(it3)){
-                        String a=txtATraducido.getText()+"\nEND IF \n";
-                        txtATraducido.setText(a);
+                        String a=txtCodigoConvertido.getText()+"\nEND IF \n";
+                        txtCodigoConvertido.setText(a);
                     }
                     if(token1.matches(main3)){
                         
-                        String c=txtATraducido.getText()+"\n";
-                        txtATraducido.setText(c);
+                        String c=txtCodigoConvertido.getText()+"\n";
+                        txtCodigoConvertido.setText(c);
                     }
                     if(token1.matches(take)){
                         StringTokenizer st2 = new StringTokenizer(token1,"()");
@@ -1440,9 +1460,9 @@ public class Ventana extends javax.swing.JFrame {
                             String tuken=st2.nextToken();
                             if(tuken.contains("TAKE")){
                                 
-                                String a=txtATraducido.getText()+"\nINPUT  ";
+                                String a=txtCodigoConvertido.getText()+"\nINPUT  ";
                                 a=a.replace('#','"');
-                                txtATraducido.setText(a);
+                                txtCodigoConvertido.setText(a);
                             }
                             if(tuken.contains("+")){
                                 String tokesito;
@@ -1450,14 +1470,14 @@ public class Ventana extends javax.swing.JFrame {
                                 while(tuk.hasMoreTokens()){
                                     tokesito=tuk.nextToken();
                                     if(tuk.hasMoreTokens()){
-                                        String a=txtATraducido.getText()+tokesito+",";
+                                        String a=txtCodigoConvertido.getText()+tokesito+",";
                                         a=a.replace('#','"');
-                                        txtATraducido.setText(a);
+                                        txtCodigoConvertido.setText(a);
                                     }else{
-                                        String a=txtATraducido.getText()+tokesito;
+                                        String a=txtCodigoConvertido.getText()+tokesito;
                                         a=a.replace('#','"');
                                         
-                                        txtATraducido.setText(a);
+                                        txtCodigoConvertido.setText(a);
                                     }
                                 }
                             }
@@ -1465,15 +1485,15 @@ public class Ventana extends javax.swing.JFrame {
                           
                             
                             if (tuken.contains(";")) {
-                                String a=txtATraducido.getText()+"\n";
+                                String a=txtCodigoConvertido.getText()+"\n";
                                 a=a.replace('#','"');
-                                txtATraducido.setText(a);
+                                txtCodigoConvertido.setText(a);
                                 
                             }
                             if(tuken.contains("TAKE")==false && tuken.contains("+")==false && tuken.contains(";")==false){
-                                String a=txtATraducido.getText()+tuken;
+                                String a=txtCodigoConvertido.getText()+tuken;
                                 a=a.replace('#','"');
-                                txtATraducido.setText(a);
+                                txtCodigoConvertido.setText(a);
                             }
                         }
                     }
@@ -1618,10 +1638,10 @@ public class Ventana extends javax.swing.JFrame {
                             String tuken=st2.nextToken();
                             if(tuken.contains("SEND")){
                                 
-                                String a=txtATraducido.getText()+"\nPRINT  ";
+                                String a=txtCodigoConvertido.getText()+"\nPRINT  ";
                                 a=a.replace('#','"');
                                 
-                                txtATraducido.setText(a);
+                                txtCodigoConvertido.setText(a);
                             }
                             if(tuken.contains("+")){
                                 String tokesito;
@@ -1629,26 +1649,26 @@ public class Ventana extends javax.swing.JFrame {
                                 while(tuk.hasMoreTokens()){
                                     tokesito=tuk.nextToken();
                                     if(tuk.hasMoreTokens()){
-                                        String a=txtATraducido.getText()+tokesito+",";
+                                        String a=txtCodigoConvertido.getText()+tokesito+",";
                                         a=a.replace('#','"');
-                                        txtATraducido.setText(a);
+                                        txtCodigoConvertido.setText(a);
                                     }else{
-                                        String a=txtATraducido.getText()+tokesito;
+                                        String a=txtCodigoConvertido.getText()+tokesito;
                                         a=a.replace('#','"');
-                                        txtATraducido.setText(a);
+                                        txtCodigoConvertido.setText(a);
                                     }
                                 }
                             }
                             
                             if (tuken.contains(";")) {
-                                String a=txtATraducido.getText()+" \n";
+                                String a=txtCodigoConvertido.getText()+" \n";
                                 a=a.replace('#','"');
-                                txtATraducido.setText(a);
+                                txtCodigoConvertido.setText(a);
                             }
                             if(tuken.contains("SEND")==false && tuken.contains("+")==false && tuken.contains(";")==false){
-                                String a=txtATraducido.getText()+tuken;
+                                String a=txtCodigoConvertido.getText()+tuken;
                                 a=a.replace('#','"');
-                                txtATraducido.setText(a);
+                                txtCodigoConvertido.setText(a);
                             }
                         }
                     }
@@ -1658,9 +1678,9 @@ public class Ventana extends javax.swing.JFrame {
                          StringTokenizer tuk= new StringTokenizer(token1);
                         while(tuk.hasMoreTokens()){
                            tokesito=tuk.nextToken();
-                           String a=txtATraducido.getText()+tokesito+"\n";
+                           String a=txtCodigoConvertido.getText()+tokesito+"\n";
                            a=a.replace(';',' ');
-                           txtATraducido.setText(a);
+                           txtCodigoConvertido.setText(a);
                         }
                         
                     JOptionPane.showMessageDialog(this,"Se encontro una operación");
@@ -1674,12 +1694,12 @@ public class Ventana extends javax.swing.JFrame {
                          StringTokenizer tuk= new StringTokenizer(token1,"\\s");
                         while(tuk.hasMoreTokens()){
                            tokesito=tuk.nextToken();
-                           String a=txtATraducido.getText()+"\n";//almacenoo todo
+                           String a=txtCodigoConvertido.getText()+"\n";//almacenoo todo
                            tokesito=tokesito.replace("START","FOR");//reemplazo
                            tokesito=tokesito.replaceAll(step," ");
                             tokesito=tokesito.replace("{","\n");
                            texto+=a+tokesito;//se guarda en el acumulador de lo reemplazado
-                           txtATraducido.setText(texto);
+                           txtCodigoConvertido.setText(texto);
                            
                         }
                        
@@ -1702,6 +1722,10 @@ public class Ventana extends javax.swing.JFrame {
         Instrctivo in= new Instrctivo();
         in.show();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1795,7 +1819,7 @@ public class Ventana extends javax.swing.JFrame {
                 if(guarda !=null)
                 {
                     FileWriter  save=new FileWriter(guarda+".bas");
-                    save.write(txtATraducido.getText());
+                    save.write(txtCodigoConvertido.getText());
                     save.close();
                     JOptionPane.showMessageDialog(null,"Se ha guardado el archivo","Información",JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1809,16 +1833,18 @@ public class Ventana extends javax.swing.JFrame {
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane Error;
+    private javax.swing.JButton GenerarAnalisisLexicoBtn;
     private javax.swing.JEditorPane LineaError;
     private javax.swing.JEditorPane Lineas;
     private javax.swing.JButton btnTraducir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1830,10 +1856,12 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel panel1;
     private javax.swing.JTable tabla;
     private javax.swing.JEditorPane txtATexto1;
-    private javax.swing.JTextArea txtATraducido;
+    private javax.swing.JTextArea txtAnalisisLexico;
+    private javax.swing.JTextArea txtCodigoConvertido;
     // End of variables declaration//GEN-END:variables
 }
