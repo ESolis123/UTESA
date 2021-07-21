@@ -30,9 +30,17 @@ namespace Compilador
             txtAnalizadorSintactico.Text = "";
 
             if (lexico.ComprobarSintaxis(txtTexto.Text))
+            {
                 txtAnalizadorSintactico.Text = "Correcto";
+                txtAnalizadorSintactico.ForeColor = Color.Green;
+            }
+
             else
+            {
                 txtAnalizadorSintactico.Text = "Hubo un error";
+                txtAnalizadorSintactico.ForeColor = Color.Red;
+            }
+                
         }
     }
      

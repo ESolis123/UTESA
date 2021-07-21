@@ -9,11 +9,12 @@ namespace Compilador
     public class AnalizadorSintactico
     {
         private List<Regex> patrones = new List<Regex>();
-
+        string[] espacios = { @"\s*", @"\s+" };
+        string retornos = @"(\n|\r|\t|\s)*";
+        string tipos = "";
 
         public bool ComprobarSintaxis(string texto)
         {
-            Console.WriteLine(patrones[0]);
             foreach(Regex patron in patrones)
             {
                 if (patron.IsMatch(texto))
@@ -27,57 +28,61 @@ namespace Compilador
 
         public void AgregarPatrones()
         {
+            tipos = DefinirOpciones(Simbolos.tipos);
             DefinirDeclaraciones();
         }
 
-        private string [] DefinirLineas()
+        private string DefinirLineas()
         {
-            List<string> lineas = new List<string>();
-            string variable = @"\s*[a-zA-Z]+\s*";
+            string variable = @"[a-zA-Z]+";
+            string numeroEnteroODecimal = @"\s*[0-9]+" + @"(\.[0-9]+)*" + @"\s*";
 
-            foreach (string tipo in Simbolos.tipos)
-            {
-                lineas.Add(tipo +"?" + variable + @"\=\s*" + variable + @"\;");
-            }
-           
+            string lineas = ("(" + retornos + tipos +"?"  + variable + espacios[0] + @"((\=" + espacios[0] + "("+ variable +@"|"+numeroEnteroODecimal+")" + @"\;)|\;)"+")*");
 
-            return lineas.ToArray();
+            return lineas;
         }
 
-        private string[] DefinirParametros()
+        private string DefinirParametros()
         {
-            List<string> lineas = new List<string>();
             string variable = @"\s*[a-zA-Z]+\s*";
 
-            foreach (string tipo in Simbolos.tipos)
+            string lineas = 
+            (
+                @"\s*\(\s*" +
+                "("+ tipos + variable + 
+                @"(\,\s*"+ tipos + variable + ")*" +
+                @")*"+
+                @"\)"
+            );
+
+            return lineas;
+        }
+
+        private string DefinirOpciones(List <string> simbolos)
+        {
+            string opciones = "((";
+            for (int c = 0; c < simbolos.Count; c++)
             {
-                lineas.Add(@"\s*\(\s*(\s*"+ tipo +variable + @"(\,"+ variable+")*" + @"\s*)*\)\s*");
+                opciones += simbolos[c];
+                if (c < simbolos.Count - 1)
+                    opciones += "|";
             }
 
-
-            return lineas.ToArray();
+            opciones += @")\s+)";
+            Console.WriteLine("opciones: " + opciones.ToString());
+            return opciones;
         }
 
         private void DefinirDeclaraciones()
         {
-            string [] lineas = DefinirLineas();
-            string [] parametros = DefinirParametros();
-            string [] llaves = { @"(\{\})"};
-            string variable = @"[a-zA-Z]";
-            string [] espacios = { @"\s*", @"\s+"};
-            foreach (string tipo in Simbolos.tipos)
-            {
-                foreach(string modificador in Simbolos.modificadores) 
-                {
-                    foreach(string parametro in parametros)
-                    {
-                        foreach (string llave in llaves) 
-                        {
-                           patrones.Add(new Regex(modificador + espacios[1] + tipo + espacios[1] + variable + espacios[0] + parametro + llave));
-                        }
-                    }  
-                }
-            }
+            string lineas = DefinirLineas();
+            string parametros = DefinirParametros();
+            string [] llaves = { @"\{", @"\}" };
+            string variable = @"[a-zA-Z]+";
+            string modificadores = DefinirOpciones(Simbolos.modificadores);
+
+            patrones.Add(new Regex("(" + modificadores + @"|\s*)" + tipos + variable + espacios[0] + parametros + retornos + llaves[0] + lineas + retornos +llaves[1]));
+            Console.WriteLine(patrones[0]);
         }
     }
 }

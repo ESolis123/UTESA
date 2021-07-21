@@ -22,7 +22,7 @@ namespace Compilador
     {
         public static List<string> palabrasReservadas = new List<string>()
         {
-            "if", "switch", "else", "while", "for", "foreach", "do", "end", "begin"
+            "if", "switch", "else", "while", "for", "foreach", "do", "end", "begin", "true", "false"
         };
 
         public static List<string> tipos = new List<string>()
@@ -37,7 +37,7 @@ namespace Compilador
 
         public static List<string> operadoresAritmeticos = new List<string>()
         {
-            "+", "-", "*", "/", "++", "--", "+=", "-=", "*=", "/="
+            "+", "-", "*", "/", "++", "--", "+=", "-=", "*=", "/=", "="
         };
 
         public static List<string> operadoresBooleanos = new List<string>()

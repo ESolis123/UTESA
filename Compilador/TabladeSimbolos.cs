@@ -42,8 +42,7 @@ namespace Compilador
 
         private string RetornarTipo(Tokens token)
         {
-            Console.WriteLine(token);
-             switch (token)
+            switch (token)
             {
                 case Tokens.Reservadas: return "Palabra Reservada";
                 case Tokens.Signos: return "Signos";
