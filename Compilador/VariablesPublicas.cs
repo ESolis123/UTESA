@@ -27,12 +27,12 @@ namespace Compilador
 
         public static List<string> tipos = new List<string>()
         {
-            "int", "bool", "float", "char", "string", "list", "array", "double", "bit"
+            "int", "bool", "float", "char", "string", "list", "array", "double", "bit", "void"
         };
 
         public static List<string> signos = new List<string>()
         {
-            "(", ")", ";", "_"
+            "(", ")", ";", "_", "{", "}"
         };
 
         public static List<string> operadoresAritmeticos = new List<string>()
@@ -50,5 +50,4 @@ namespace Compilador
             "public", "private", "protected"
         };
     }
-    
 }

@@ -8,75 +8,82 @@ namespace Compilador
 {
     public class TabladeSimbolos
     {
-        private string texto; 
+        private string texto;
         public string AnalizarTabladeSimbolos(string txtTexto)
         {
-            List<string> palabrasReservadas = BuscarTokens(txtTexto.ToLower(), Simbolos.palabrasReservadas);
-            List<string> signos = BuscarTokens(txtTexto.ToLower(), Simbolos.signos);
-            List<string> operadoresAritmeticos = BuscarTokens(txtTexto.ToLower(), Simbolos.operadoresAritmeticos);
-            List<string> operadoresBooleanos = BuscarTokens(txtTexto.ToLower(), Simbolos.operadoresBooleanos);
-            List<string> tipos = BuscarTokens(txtTexto.ToLower(), Simbolos.tipos);
-            List<string> modificadores = BuscarTokens(txtTexto.ToLower(), Simbolos.modificadores);
+            BuscarTokens(txtTexto);
 
-            LlenarTabladeSimbolos(modificadores, Tokens.Modificadores);
-            LlenarTabladeSimbolos(tipos, Tokens.Tipos);
-            LlenarTabladeSimbolos(signos, Tokens.Signos);
-            LlenarTabladeSimbolos(palabrasReservadas, Tokens.Reservadas);
-            LlenarTabladeSimbolos(operadoresAritmeticos, Tokens.OperadoresAritmeticos);
-            LlenarTabladeSimbolos(operadoresBooleanos, Tokens.OperadoresBooleanos);
-            
-            
             return texto;
         }
-        private void LlenarTabladeSimbolos(List<string> lista, Tokens token)
+
+        private void LlenarTabladeSimbolos(List <string[,]> tokens)
         {
-            foreach (string type in lista)
+            int t = 0;
+            foreach (string[,] token in tokens)
             {
                 texto += "\n";
-                texto += type + "\t";
-                texto += RetornarTipo(token);
+                texto += tokens[t][0,0] + "\t";
+                texto += RetornarTipo(int.Parse(tokens[t][0,1]));
                 texto += "\r";
+                t++;
             }
         }
 
-
-        private string RetornarTipo(Tokens token)
+        private string RetornarTipo(int type)
         {
-            switch (token)
+            switch (type)
             {
-                case Tokens.Reservadas: return "Palabra Reservada";
-                case Tokens.Signos: return "Signos";
-                case Tokens.OperadoresAritmeticos: return "Operadores Aritmeticos";
-                case Tokens.OperadoresBooleanos: return "Operadores Booleanos";
-                case Tokens.Tipos: return "Tipo";
-                case Tokens.Modificadores: return "Modificador de acceso";
+                case 0: return "Modificador de acceso";
+                case 1: return "Operadores aritmeticos";
+                case 2: return "Palabras reservadas";
+                case 3: return "Signos";
+                case 4: return "Tipos";
+                case 5: return "Operadores Booleanos";
+                case 6: return "Variables";
             }
 
             return "";
         }
 
-        private List<string> BuscarTokens (string texto, List <string> simbolos)
+        private void BuscarTokens (string texto)
         {
-            List<string> enElCodigo = EncontrarEnElCodigo(texto, simbolos);
-            return enElCodigo;
-        }
-
-
-        private List<string> EncontrarEnElCodigo(string texto, List<string> listaTokens)
-        {
-            List<string> lista = new List<string>();
-
-            foreach (string reservada in listaTokens)
+            texto = texto.Replace("(", " ( ");
+            texto = texto.Replace("{", " { ");
+            string[] separados = texto.Split();
+            List <string[,]> tokens = new List<string[,]>();
+            List <List<string>> simbolos = new List<List<string>>()
             {
-                if (texto.Contains(reservada))
+                Simbolos.modificadores,
+                Simbolos.operadoresAritmeticos,
+                Simbolos.palabrasReservadas,
+                Simbolos.signos,
+                Simbolos.tipos,
+                Simbolos.operadoresBooleanos
+            };
+
+            foreach(string token in separados)
+            {
+                Console.WriteLine(token);
+                int s= 0;
+                bool found = false;
+                foreach(List<string> simbolo in simbolos)
                 {
-                    lista.Add(reservada);
+                    if(simbolo.Contains(token))
+                    {
+                        Console.WriteLine(s);
+                        tokens.Add(new string[,]{{$"{token}",$"{s}"}});
+                        found=true;
+                        break;
+                    }
+                    s++;
                 }
+
+                if (!found)
+                    tokens.Add(new string[,] { { $"{token}", $"{simbolos.Count}" } });
             }
 
-            return lista;
+            LlenarTabladeSimbolos(tokens);
         }
     }
-
 }
 
